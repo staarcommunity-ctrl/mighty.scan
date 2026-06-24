@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Login / Cadastro - Sua Scan</title>
+    <style>
+        body { background: #121212; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: #1e1e1e; padding: 30px; border-radius: 10px; width: 300px; text-align: center; border: 1px solid #333; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; background: #333; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #ff79c6; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2 id="titulo">Login</h2>
+        <input type="text" placeholder="Usuário">
+        <input type="password" placeholder="Senha">
+        <input type="password" id="campo-confirma" placeholder="Confirmar Senha" style="display:none;">
+        
+        <button id="btn-acao" onclick="alert('Funcionalidade em breve!')">Entrar</button>
+        
+        <p id="texto-alternar" style="font-size: 12px; margin-top: 15px;">
+            Não tem conta? <a href="#" onclick="toggleModo()" style="color: #ff79c6; text-decoration: none;">Cadastre-se</a>
+        </p>
+        <p><a href="index.html" style="color: #ff79c6; font-size: 12px; text-decoration: none;">Voltar para o início</a></p>
+    </div>
+
+    <script>
+        let estaNoLogin = true;
+        function toggleModo() {
+            estaNoLogin = !estaNoLogin;
+            document.getElementById('titulo').innerText = estaNoLogin ? "Login" : "Cadastro";
+            document.getElementById('btn-acao').innerText = estaNoLogin ? "Entrar" : "Criar Conta";
+            document.getElementById('campo-confirma').style.display = estaNoLogin ? "none" : "block";
+            document.getElementById('texto-alternar').innerHTML = estaNoLogin ? 
+                'Não tem conta? <a href="#" onclick="toggleModo()" style="color: #ff79c6; text-decoration: none;">Cadastre-se</a>' : 
+                'Já tem conta? <a href="#" onclick="toggleModo()" style="color: #ff79c6; text-decoration: none;">Faça Login</a>';
+        }
+    </script>
+</body>
+</html>
