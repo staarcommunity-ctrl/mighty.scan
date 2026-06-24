@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Postar BL</title>
+    <style>
+        body { background: #121212; color: white; font-family: sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #1e1e1e; padding: 30px; border-radius: 10px; border: 1px solid #333; }
+        h1 { color: #ff79c6; text-align: center; margin-bottom: 30px; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+        
+        label { display: block; margin-top: 15px; font-size: 14px; color: #aaa; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; background: #121212; border: 1px solid #333; color: white; border-radius: 5px; box-sizing: border-box; }
+        
+        button { margin-top: 30px; width: 100%; padding: 15px; background: #50fa7b; color: #000; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; font-size: 16px; }
+        button:hover { background: #41c466; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Painel de Postagem</h1>
+        <form>
+            <div class="form-grid">
+                <div>
+                    <label>Título do BL</label>
+                    <input type="text" placeholder="Nome da obra" required>
+                </div>
+                <div>
+                    <label>Link da Capa (URL)</label>
+                    <input type="text" placeholder="https://exemplo.com/capa.jpg">
+                </div>
+                <div>
+                    <label>Autor</label>
+                    <input type="text" placeholder="Nome do autor">
+                </div>
+                <div>
+                    <label>Artista</label>
+                    <input type="text" placeholder="Nome do artista">
+                </div>
+                <div>
+                    <label>Scan</label>
+                    <input type="text" placeholder="Nome da equipe/Scan">
+                </div>
+                <div>
+                    <label>Classificação</label>
+                    <select>
+                        <option>Livre</option>
+                        <option>12+</option>
+                        <option>14+</option>
+                        <option>16+</option>
+                        <option>18+</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Status</label>
+                    <select>
+                        <option>Andamento</option>
+                        <option>Hiatus</option>
+                        <option>Finalizado</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Tipo</label>
+                    <select>
+                        <option>Webtoon</option>
+                        <option>Manhwa</option>
+                        <option>Manga</option>
+                        <option>Manhua</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>Gêneros (separados por vírgula)</label>
+            <input type="text" placeholder="Romance, Drama, Comédia, Sobrenatural...">
+
+            <label>Sinopse</label>
+            <textarea rows="5" placeholder="Escreva a sinopse aqui..."></textarea>
+
+            <button type="button" onclick="alert('Obra enviada com sucesso!')">Publicar BL</button>
+        </form>
+    </div>
+</body>
+</html>

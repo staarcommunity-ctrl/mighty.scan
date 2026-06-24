@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Postar Capítulo</title>
+    <style>
+        body { background: #121212; color: white; font-family: sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
+        .box { background: #1e1e1e; padding: 25px; border-radius: 10px; }
+        label { display: block; margin-top: 15px; color: #ff79c6; font-weight: bold; }
+        select, input { width: 100%; padding: 12px; margin-top: 5px; background: #333; border: none; border-radius: 5px; color: white; }
+        button { width: 100%; padding: 15px; background: #50fa7b; border: none; margin-top: 20px; font-weight: bold; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Upload de Novo Capítulo</h2>
+        <label>Selecionar BL</label>
+        <select>
+            <option>BL 01</option>
+            <option>BL 02</option>
+        </select>
+        
+        <label>Número do Capítulo</label>
+        <input type="number" placeholder="Ex: 1">
+        
+        <label>Páginas (Selecione todas de uma vez)</label>
+        <input type="file" multiple accept="image/*">
+        
+        <button onclick="alert('Capítulo postado!')">Enviar Páginas</button>
+    </div>
+</body>
+</html>

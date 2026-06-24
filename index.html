@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sua Scan</title>
+    <style>
+        body { background-color: #121212; color: white; font-family: sans-serif; margin: 0; padding-top: 70px; }
+
+        /* --- HEADER --- */
+        header { position: fixed; top: 0; width: 100%; height: 60px; background: #1a1a1a; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5); box-sizing: border-box; }
+        .logo { font-weight: bold; font-size: 20px; color: #ff79c6; cursor: pointer; }
+        .nav-icons { display: flex; gap: 15px; align-items: center; }
+        .icon { cursor: pointer; width: 24px; fill: white; }
+        #search-bar { display: none; background: #333; color: white; border: 1px solid #ff79c6; padding: 5px; border-radius: 4px; width: 150px; }
+
+        /* --- MENU LATERAL --- */
+        #menu-lateral { position: fixed; top: 0; right: -250px; width: 250px; height: 100%; background: #1e1e1e; z-index: 2000; transition: 0.3s; padding: 60px 20px; box-sizing: border-box; border-left: 1px solid #333; }
+        #menu-lateral a { display: block; color: white; text-decoration: none; padding: 15px 0; border-bottom: 1px solid #333; }
+
+        /* --- CARROSSEL --- */
+        .destaques { display: flex; gap: 15px; overflow-x: auto; padding: 20px; scroll-snap-type: x mandatory; max-width: 900px; margin: 0 auto; scroll-behavior: smooth; }
+        .destaque-card { min-width: 150px; height: 200px; background: #333; border-radius: 8px; scroll-snap-align: start; flex-shrink: 0; }
+
+        /* --- GRADE PRINCIPAL --- */
+        .catalogo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 900px; margin: 20px auto; padding: 0 10px; }
+        .bl-card { position: relative; background-color: #1e1e1e; padding: 10px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; z-index: 1; }
+        .bl-card:hover { transform: scale(1.05); z-index: 100; }
+
+        .tag-status { position: absolute; top: 10px; left: 10px; font-size: 9px; padding: 2px 5px; border-radius: 4px; font-weight: bold; z-index: 10; }
+        .status-andamento { background: #50fa7b; color: #000; }
+        .status-hiatus { background: #f1fa8c; color: #000; }
+        .status-finalizado { background: #ff79c6; color: #fff; }
+
+        .preview-box { display: none; position: absolute; left: 110%; top: 0; width: 280px; background: #1e1e1e; border: 2px solid #ff79c6; padding: 15px; border-radius: 8px; z-index: 101; box-shadow: 10px 10px 20px rgba(0,0,0,0.8); text-align: left; pointer-events: none; }
+        @media (min-width: 768px) {
+            .catalogo-grid { grid-template-columns: repeat(6, 1fr); }
+            .bl-card:hover .preview-box { display: flex; gap: 10px; }
+        }
+
+        .bl-capa-falsa { width: 100%; aspect-ratio: 3/4; background: linear-gradient(135deg, #ff79c6, #8be9fd); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #121212; }
+        .bl-titulo { margin-top: 8px; font-size: 12px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Minha Scan</div>
+        <div class="nav-icons">
+            <input type="text" id="search-bar" placeholder="Pesquisar..." oninput="filtrarCatalogo()">
+            <span class="icon" onclick="toggleSearch()">🔍</span>
+            <a href="https://discord.gg/seu-link" target="_blank" class="icon">💬</a>
+            <div class="icon" onclick="toggleMenu()">☰</div>
+        </div>
+    </header>
+
+    <div id="menu-lateral">
+        <a href="#" onclick="toggleMenu()">X</a>
+        <a href="login.html">Login</a>
+        <a href="recrutamento.html">Recrutamento</a>
+    </div>
+
+    <div class="destaques" id="carrossel">
+        <div class="destaque-card">Destaque 1</div>
+        <div class="destaque-card">Destaque 2</div>
+        <div class="destaque-card">Destaque 3</div>
+        <div class="destaque-card">Destaque 4</div>
+    </div>
+
+    <div class="catalogo-grid" id="catalogo"></div>
+
+    <script>
+        // Menu Lateral
+        function toggleMenu() {
+            const menu = document.getElementById('menu-lateral');
+            menu.style.right = menu.style.right === '0px' ? '-250px' : '0px';
+        }
+
+        // Busca
+        function toggleSearch() {
+            const search = document.getElementById('search-bar');
+            search.style.display = search.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function filtrarCatalogo() {
+            const termo = document.getElementById('search-bar').value.toLowerCase();
+            const cards = document.querySelectorAll('.bl-card');
+            cards.forEach(card => {
+                const titulo = card.querySelector('.bl-titulo').innerText.toLowerCase();
+                card.style.display = titulo.includes(termo) ? 'block' : 'none';
+            });
+        }
+
+        // Carrossel Automático
+        const carrossel = document.getElementById('carrossel');
+        setInterval(() => {
+            carrossel.scrollLeft += 165; // Ajuste conforme o tamanho do card
+            if (carrossel.scrollLeft >= (carrossel.scrollWidth - carrossel.clientWidth)) {
+                carrossel.scrollLeft = 0;
+            }
+        }, 3000);
+
+        // Renderizar Catálogo
+        const catalogo = document.getElementById('catalogo');
+        const status = ['andamento', 'hiatus', 'finalizado'];
+        for (let i = 1; i <= 48; i++) {
+            let s = status[i % 3]; 
+            catalogo.innerHTML += `
+                <div class="bl-card" onclick="window.location.href='detalhes.html'">
+                    <div class="tag-status status-${s}">${s.toUpperCase()}</div>
+                    <div class="bl-capa-falsa">Capa ${i}</div>
+                    <div class="bl-titulo">BL ${i}</div>
+                    
+                    <div class="preview-box">
+                        <div style="width:80px; height:110px; background:#333; flex-shrink:0;"></div>
+                        <div>
+                            <h4 style="margin:0; color:#ff79c6;">Título ${i}</h4>
+                            <p style="font-size: 12px; margin: 5px 0;">Resumo do BL ${i}...</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Leitor - Cap 01</title>
+    <style>
+        /* CSS para impedir seleção e aplicar proteção */
+        body { background: #000; color: white; margin: 0; padding: 20px; text-align: center; font-family: sans-serif; transition: filter 0.3s; }
+        
+        /* Proteção contra seleção */
+        body, .area-leitura { user-select: none; -webkit-user-select: none; }
+
+        .nav-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; position: sticky; top: 0; background: #121212; padding: 10px; z-index: 1000; }
+        button { background: #ff79c6; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; font-weight: bold; }
+        
+        .area-leitura { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Bloqueia cliques diretos na imagem */
+        .pag { width: 100%; display: block; object-fit: contain; margin-bottom: 5px; pointer-events: none; } 
+        
+        .modo-pag { display: none; } 
+        .ativo { display: block; }
+
+        .secao-comentarios { max-width: 700px; margin: 40px auto; text-align: left; border-top: 1px solid #333; padding-top: 20px; }
+        .spoiler { background: #000; color: #000; cursor: pointer; padding: 0 4px; border-radius: 3px; }
+        .spoiler.revelado { background: #333; color: white; }
+        .comment-box { background: #1e1e1e; padding: 15px; margin-bottom: 10px; border-radius: 8px; position: relative; }
+        .btn-del { color: #ff5555; cursor: pointer; font-size: 12px; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="nav-bar">
+        <a href="detalhes.html"><button>⬅ Voltar</button></a>
+        <button id="btn-modo" onclick="alternarModo()">Modo: Scroll</button>
+    </div>
+
+    <div id="leitor" class="area-leitura">
+        <img src="img1.jpg" class="pag">
+        <img src="img2.jpg" class="pag">
+    </div>
+
+    <script>
+        // 1. Bloquear Botão Direito
+        document.addEventListener('contextmenu', event => {
+            event.preventDefault();
+            alert('Ah, tira a mão daqui, seu ladrão!');
+        });
+
+        // 2. Bloquear Printscreen (simples, via blur)
+        // Quando a pessoa tenta mudar de aba ou minimizar, a tela fica borrada/escura
+        window.addEventListener('blur', () => {
+            document.body.style.filter = 'blur(20px) brightness(0%)';
+        });
+        window.addEventListener('focus', () => {
+            document.body.style.filter = 'none';
+        });
+
+        // 3. Bloquear Drag and Drop (arrastar imagem)
+        document.addEventListener('dragstart', (e) => e.preventDefault());
+
+        // Lógica original de comentários e modo leitura...
+        function postarComentario() { /* ... */ }
+        function alternarModo() { /* ... */ }
+    </script>
+</body>
+</html>
